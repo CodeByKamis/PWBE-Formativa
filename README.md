@@ -1,2 +1,2 @@
-# PWBE-Integrador
-Projeto integrador de PWBE em andamento
+# PWBE-Formativa
+Projeto Formativa de PWBE em andamento
