@@ -10,7 +10,7 @@ class Usuario(AbstractUser):
     ]
 
     tipo = models.CharField(max_length=200, choices=TIPO_CHOICES, default='P') #esse é um campo opcional de escolha, se não escolher vai o padrao "P"
-    ni = models.IntegerField()
+    ni = models.IntegerField(unique=True)
     telefone = models.CharField(max_length=20, blank=True, null=True) #esse é um campo opcional, é aceito o null (nada)
     data_nascimento = models.DateField()
     data_contratacao = models.DateField()

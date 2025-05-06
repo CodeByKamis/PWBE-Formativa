@@ -5,18 +5,22 @@ from .serializers import UsuarioSerializer, DisciplinaSerializer, ReservaAmbient
 from .permissions import IsGestor, IsProfessor, IsDonoOuGestor
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
-
+#usuario
 class UsuarioListCreate(ListCreateAPIView):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
     permission_classes = [IsGestor]
-
+    
+    
 class UsuarioRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
     permission_classes = [IsGestor]
     lookup_field = 'pk' #é o id do usuario que ele vai procurar
 
+
+
+#disciplina
 class DisciplinaListCreate(ListCreateAPIView):
     queryset = Disciplina.objects.all()
     serializer_class = DisciplinaSerializer
@@ -26,7 +30,7 @@ class DisciplinaListCreate(ListCreateAPIView):
             return [IsAuthenticated()] #para visualizar qualquer um pode
         return[IsGestor()] #se não for visualizar, ou seja, criar etc. é somente o gestor
     
-class DisciplinaRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):#get, putch, delete
+class DisciplinaRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):#get, putch, delete, put
     queryset = Disciplina.objects.all()
     serializer_class = DisciplinaSerializer
     permission_classes = [IsGestor]
@@ -40,6 +44,8 @@ class DisciplinaProfessorList(ListAPIView):
         return Disciplina.objects.filter(professor=self.request.user)
     
 
+
+#reservas
 class ReservaAmbienteListCreate(ListCreateAPIView):
     queryset = ReservaAmbiente.objects.all()
     serializer_class = ReservaAmbienteSerializer
@@ -47,7 +53,7 @@ class ReservaAmbienteListCreate(ListCreateAPIView):
     def get_permissions(self):
         if self.request.method == 'GET':
             return [IsAuthenticated()]
-        return [IsGestor]
+        return [IsGestor()]
     
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -69,6 +75,9 @@ class ReservaAmbienteProfessorList(ListAPIView):
     def get_queryset(self):
         return ReservaAmbiente.objects.filter(professor=self.request.user) #vai filtrar a reserva daquele professor que está fazendo a consulta
     
+
+
+#Login
 class LoginView(TokenObtainPairView):
     serializer_class = LoginSerializer
 
