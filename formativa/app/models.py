@@ -15,7 +15,7 @@ class Usuario(AbstractUser):
     data_nascimento = models.DateField()
     data_contratacao = models.DateField()
 
-    REQUIRED_FIELDS=['ni', 'data_nascimento','data_contratacao'] #sao os campos obrigatorios de preenchimento
+    REQUIRED_FIELDS=['ni', 'data_nascimento','data_contratacao', 'tipo'] #sao os campos obrigatorios de preenchimento
     def __str__(self):
         return f'{self.username}, {self.get_tipo_display()}' #get_nomedoCHOICE_display serve para mostrar o display ou seja, inves de P mostra PROFESSOR
 
@@ -47,7 +47,7 @@ class ReservaAmbiente(models.Model):
     data_termino = models.DateField()
     periodo = models.CharField(max_length=255, choices=PERIODO_CHOICES, default='M')
     sala_reservada = models.ForeignKey(Sala, on_delete=models.CASCADE) #CASCADE pois se uma sala não existe, logo a reserva não pode existir
-    professsor = models.ForeignKey(Usuario, on_delete=models.CASCADE, limit_choices_to={'tipo': 'P'})
+    professor = models.ForeignKey(Usuario, on_delete=models.CASCADE, limit_choices_to={'tipo': 'P'})
     disciplina = models.ForeignKey(Disciplina, on_delete=models.CASCADE)
 
     def __str__(self):

@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView
-from .models import Usuario, Disciplina, ReservaAmbiente
-from .serializers import UsuarioSerializer, DisciplinaSerializer, ReservaAmbienteSerializer, LoginSerializer
+from .models import Usuario, Disciplina, ReservaAmbiente, Sala
+from .serializers import UsuarioSerializer, DisciplinaSerializer, ReservaAmbienteSerializer, LoginSerializer, SalaSerializer
 from .permissions import IsGestor, IsProfessor, IsDonoOuGestor
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework.exceptions import ValidationError
+
 #usuario
 class UsuarioListCreate(ListCreateAPIView):
     queryset = Usuario.objects.all()
@@ -17,8 +19,6 @@ class UsuarioRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
     serializer_class = UsuarioSerializer
     permission_classes = [IsGestor]
     lookup_field = 'pk' #é o id do usuario que ele vai procurar
-
-
 
 #disciplina
 class DisciplinaListCreate(ListCreateAPIView):
@@ -43,8 +43,18 @@ class DisciplinaProfessorList(ListAPIView):
     def get_queryset(self):
         return Disciplina.objects.filter(professor=self.request.user)
     
+#sala
+class SalaListCreate(ListCreateAPIView):
+    queryset = Sala.objects.all()
+    serializer_class = SalaSerializer
+    permission_classes = [IsGestor]
 
-
+class SalaRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
+    queryset = Sala.objects.all()
+    serializer_class = SalaSerializer
+    permission_classes = [IsDonoOuGestor]
+    lookup_field= 'pk' # Não necessarimanete é obrigatorio, é por identação _> procura por Pk
+    
 #reservas
 class ReservaAmbienteListCreate(ListCreateAPIView):
     queryset = ReservaAmbiente.objects.all()
@@ -61,6 +71,35 @@ class ReservaAmbienteListCreate(ListCreateAPIView):
         if professor_id:
             queryset = queryset.filter(professor_id=professor_id)
         return queryset
+    
+    
+    def perform_create(self, serializer):
+        data = serializer.validated_data
+        sala = data['sala_reservada']
+        periodo = data['periodo']
+        data_inicio = data['data_inicio']
+        data_termino = data['data_termino']
+        #vai verificar de cada dia dentro desse intervalo que quer fazer reserva existe uma reserva na sala
+        from datetime import timedelta
+        
+        dia_inicial = data_inicio
+        while dia_inicial <= data_termino:
+            conflitante = ReservaAmbiente.objects.filter(
+                sala_reservada=sala,
+                periodo=periodo,
+                data_inicio__lte=dia_inicial,
+                data_termino__gte=dia_inicial
+            )
+            if conflitante.exists():
+                raise ValidationError(
+                    f"Infelizmente a Sala '{sala}' já tem uma reserva no período '{periodo}' no data '{dia_inicial}' :( tente outra por favor."
+                )
+            dia_inicial +=timedelta(days=1)
+            serializer.save() #ele salva se nn tiver conflito nenhum :D
+    
+    
+    
+    
 
 class ReservaAmbienteRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
     queryset = ReservaAmbiente.objects.all()
