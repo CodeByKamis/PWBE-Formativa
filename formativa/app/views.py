@@ -87,15 +87,15 @@ class ReservaAmbienteListCreate(ListCreateAPIView):
             conflitante = ReservaAmbiente.objects.filter(
                 sala_reservada=sala,
                 periodo=periodo,
-                data_inicio__lte=dia_inicial,
-                data_termino__gte=dia_inicial
+                data_inicio__lte=dia_inicial, #lte: less than: significa menor ou igual, é para a menor data ou o dia atual do agendamento
+                data_termino__gte=dia_inicial #gte: greater than: significa maior ou igual, é a data maior ou a final
             )
-            if conflitante.exists():
+            if conflitante.exists(): #caso o conflito exista, vamos dar um retorno para o usuario
                 raise ValidationError(
                     f"Infelizmente a Sala '{sala}' já tem uma reserva no período '{periodo}' no data '{dia_inicial}' :( tente outra por favor."
                 )
             dia_inicial +=timedelta(days=1)
-            serializer.save() #ele salva se nn tiver conflito nenhum :D
+        serializer.save() #ele salva se nn tiver conflito nenhum :D
     
     
     

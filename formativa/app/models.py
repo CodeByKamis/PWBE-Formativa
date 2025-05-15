@@ -47,7 +47,7 @@ class ReservaAmbiente(models.Model):
     data_termino = models.DateField()
     periodo = models.CharField(max_length=255, choices=PERIODO_CHOICES, default='M')
     sala_reservada = models.ForeignKey(Sala, on_delete=models.CASCADE) #CASCADE pois se uma sala não existe, logo a reserva não pode existir
-    professor = models.ForeignKey(Usuario, on_delete=models.CASCADE, limit_choices_to={'tipo': 'P'})
+    professsor = models.ForeignKey(Usuario, on_delete=models.CASCADE, limit_choices_to={'tipo': 'P'})
     disciplina = models.ForeignKey(Disciplina, on_delete=models.CASCADE)
 
     def __str__(self):

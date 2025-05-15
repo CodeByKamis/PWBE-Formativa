@@ -11,13 +11,13 @@ urlpatterns = [
 
     #reserva de ambiente
     path('reservas/', ReservaAmbienteListCreate.as_view()),
-    path('reservas/<int:pk>/', ReservaAmbienteRetrieveUpdateDestroy.as_view()),#PAREI AQUI
+    path('reservas/<int:pk>/', ReservaAmbienteRetrieveUpdateDestroy.as_view()),
     path('professor/reservas/', ReservaAmbienteProfessorList.as_view()),
 
     #disciplina
     path('disciplina/', DisciplinaListCreate.as_view()),
-    path('disciplina/<int:pk>/', DisciplinaRetrieveUpdateDestroy.as_view()),
-    path('professor/disciplina', DisciplinaProfessorList.as_view()),
+    path('disciplina/<int:pk>/', DisciplinaRetrieveUpdateDestroy.as_view()),#PAREI AQUI
+    path('professor/disciplina', DisciplinaProfessorList.as_view()),#essa eu já fiz :D
     
     #sala
     path('sala/', SalaListCreate.as_view()),
