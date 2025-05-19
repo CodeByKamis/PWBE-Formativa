@@ -1,14 +1,17 @@
 # PWBE-Formativa
 
-## Esse é o passo a passo para que o projeto rode corretamente, siga-os!
+## ESSE É O PASSO A PASSO PARA QUE O PROJETO RODE CORRETAMENTE, SIGA-OS!!
 
-- OBS.: Esses são os passos para rodar em um servidor Windows, caso seja outro, os comandos da aplicação podem ser um pouco diferentes.
+### PRÉ-REQUISITOS:
+- Deve ser um servidor Windows para que todos os comandos da aplicação funcione corretamente, caso seja outro, eles podem necessitar de alterações.
+- O Python deve estar instalado na máquina para funcionar;
+- O Python deve estar instalado no Visual Studio Code para funcionar;
+- É necessário que você tenha instalado na sua máquina o APP mysql Workbench, pois é por lá que você vai criar o banco de dados.
 
 ### BANCO DE DADOS:
-- É necessário que você tenha instalado na sua máquina o APP mysql Workbench, pois é por lá que você vai criar o banco de dados.
-Abra o WorkBench;
-1. Abra o Banco do projeto no APP
-2. Vá no Settings.py e insira os dados corretos na linha 95 - 99 para que o projeto rode corretamente
+1. Abra o WorkBench
+2. Abra o Banco do projeto no APP
+3. Vá no Settings.py e insira os dados corretos na linha 95 - 99 para que o projeto rode corretamente
 
 ### APLICAÇÃO:
 - Para rodar o projeto é necessário fazer uma série de passos que estão listados abaixo:
