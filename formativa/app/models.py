@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 
-'''é o usuario'''
+#model do usuario, sobre suas informações que terá no banco, que tipo de usuário é (P ou G) e que tipo de info. é (int, text, charfield etc.)
 class Usuario(AbstractUser):
     TIPO_CHOICES = [
         ('G','Gestor'),
@@ -19,6 +19,7 @@ class Usuario(AbstractUser):
     def __str__(self):
         return f'{self.username}, {self.get_tipo_display()}' #get_nomedoCHOICE_display serve para mostrar o display ou seja, inves de P mostra PROFESSOR
 
+#model das disciplnas, que tipo de informações será fornecida sobre o curso, tipo de informação (int, charfield, text)
 class Disciplina (models.Model):
     nome = models.CharField(max_length=255)
     curso = models.CharField(max_length=255)
@@ -28,13 +29,15 @@ class Disciplina (models.Model):
 
     def __str__(self):
         return self.nome
-    
+
+#model da sala, suas informações que poderão ser forncecidas para criação, edição etc. e o tipo de informação (charfield e int)
 class Sala(models.Model):
     nome = models.CharField(max_length=100)
     capacidade = models.IntegerField()
     def __str__(self):
         return self.nome
-    
+
+#model das reservas das salas, onde tem as informações necessárias para realizar uma reserva e o tipo de informação (charfield, Datefield etc.)
 class ReservaAmbiente(models.Model):
 
     PERIODO_CHOICES = [

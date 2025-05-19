@@ -20,3 +20,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+# o manage.py serve para executar comandos administrativos do django

@@ -7,20 +7,20 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.exceptions import ValidationError
 
-#usuario
+#usuario -> gerenciando quem pode visualizar essa view do projeto
 class UsuarioListCreate(ListCreateAPIView):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
     permission_classes = [IsGestor]
     
-    
+# essa navegação é feita a partir de PK, então o ID do usuario deve ser expecíficado e deve ser Gestor para visualizar essa view
 class UsuarioRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
     permission_classes = [IsGestor]
     lookup_field = 'pk' #é o id do usuario que ele vai procurar
 
-#disciplina
+#disciplina -> para ver todos podem ver (professor e gestor), caso não seja GET, ou seja, DELETE, PUT, PATCH é o Gestor apenas
 class DisciplinaListCreate(ListCreateAPIView):
     queryset = Disciplina.objects.all()
     serializer_class = DisciplinaSerializer
@@ -29,13 +29,15 @@ class DisciplinaListCreate(ListCreateAPIView):
         if self.request.method == 'GET':
             return [IsAuthenticated()] #para visualizar qualquer um pode
         return[IsGestor()] #se não for visualizar, ou seja, criar etc. é somente o gestor
-    
+
+#essa navegação é feita a partir de PK, então o ID da disciplina deve ser expecíficado e deve ser Gestor para visualizar essa view
 class DisciplinaRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):#get, putch, delete, put
     queryset = Disciplina.objects.all()
     serializer_class = DisciplinaSerializer
     permission_classes = [IsGestor]
     lookup_field = 'pk'
 
+#os professores podem ver as disciplinas
 class DisciplinaProfessorList(ListAPIView):
     serializer_class = DisciplinaSerializer
     permission_classes = [IsProfessor]
@@ -43,19 +45,19 @@ class DisciplinaProfessorList(ListAPIView):
     def get_queryset(self):
         return Disciplina.objects.filter(professor=self.request.user)
     
-#sala
+#sala -> apenas os usuarios autenticados como gestores podem acessar essa view
 class SalaListCreate(ListCreateAPIView):
     queryset = Sala.objects.all()
     serializer_class = SalaSerializer
     permission_classes = [IsGestor]
-
+# apenas os usuarios autenticados como gestores podem acessar essa view e deve ser navegada por PK, ou seja, Usando o ID da sala
 class SalaRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
     queryset = Sala.objects.all()
     serializer_class = SalaSerializer
-    permission_classes = [IsDonoOuGestor]
-    lookup_field= 'pk' # Não necessarimanete é obrigatorio, é por identação _> procura por Pk
+    permission_classes = [IsGestor]
+    lookup_field= 'pk' 
     
-#reservas
+#reservas -> Para visualizar tanto professores quanto gestores podem, mas caso seja qualquer outra função além dessa, apenas gestores estão liberados
 class ReservaAmbienteListCreate(ListCreateAPIView):
     queryset = ReservaAmbiente.objects.all()
     serializer_class = ReservaAmbienteSerializer
@@ -100,13 +102,13 @@ class ReservaAmbienteListCreate(ListCreateAPIView):
     
     
     
-
+# Apenas gestores podem utilizar essa view, ele deve pesquisa a reserva por pk, ou seja, ID da reserva e deve ser autenticado como gestor
 class ReservaAmbienteRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
     queryset = ReservaAmbiente.objects.all()
     serializer_class = ReservaAmbienteSerializer
-    permission_classes = [IsDonoOuGestor]
+    permission_classes = [IsGestor]
     lookup_field= 'pk'
-
+#apenas professores podem utilizar essa view, ele deve ser autenticado como professor
 class ReservaAmbienteProfessorList(ListAPIView):
     serializer_class = ReservaAmbienteSerializer
     pagination_class = [IsProfessor]
@@ -116,7 +118,7 @@ class ReservaAmbienteProfessorList(ListAPIView):
     
 
 
-#Login
+#Login -> todos podem fazer o login
 class LoginView(TokenObtainPairView):
     serializer_class = LoginSerializer
 

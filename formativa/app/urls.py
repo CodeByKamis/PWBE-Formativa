@@ -16,8 +16,8 @@ urlpatterns = [
 
     #disciplina
     path('disciplina/', DisciplinaListCreate.as_view()),
-    path('disciplina/<int:pk>/', DisciplinaRetrieveUpdateDestroy.as_view()),#PAREI AQUI
-    path('professor/disciplina', DisciplinaProfessorList.as_view()),#essa eu já fiz :D
+    path('disciplina/<int:pk>/', DisciplinaRetrieveUpdateDestroy.as_view()),
+    path('professor/disciplina', DisciplinaProfessorList.as_view()),
     
     #sala
     path('sala/', SalaListCreate.as_view()),
@@ -25,4 +25,3 @@ urlpatterns = [
 
 ]
 
-#-> ALTA FAZER ESSES TODOS E DEPOIS O URLS DE SALA E FALTA TAMBÉM A TRATATIVA DE ERRO DE HORARIO NO AGENDAMENTO

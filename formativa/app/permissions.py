@@ -1,6 +1,9 @@
 from rest_framework.permissions import BasePermission
 
+'''essas são as permissões para os usuários do projeto, os professores, gestores e donos.
 
+-> Caso o usuário não tenha permissão para acessar algo que ele queira, a "message" será exibida para o mesmo
+'''
 class IsGestor(BasePermission):
     message = 'Apenas gestores possuem permissão para essa funcionalidade'
     def has_permission(self, request, view):

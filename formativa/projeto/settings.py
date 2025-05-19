@@ -30,7 +30,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
+## adicionei o rest_framework, rest_framework_simplejwt e app para serem instalados no projeto
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'app',
 ]
-
+#reconhecer o projeto
 AUTH_USER_MODEL = 'app.Usuario'
 
 REST_FRAMEWORK={
@@ -65,7 +65,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+#reconhecer o projeto
 ROOT_URLCONF = 'projeto.urls'
 
 TEMPLATES = [
@@ -88,18 +88,19 @@ WSGI_APPLICATION = 'projeto.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
+# informações sobre o banco de dados que devem ser alterados de acordo com as informações do banco de cada máquina que rodar a aplicação
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'cadastro',
         'USER': 'root',
-        'PASSWORD': 'kamila123',
+        'PASSWORD': 'senai', 
         'HOST': 'localhost',
         'PORT': '3306'
     }
 }
 
+ # kamila123
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators

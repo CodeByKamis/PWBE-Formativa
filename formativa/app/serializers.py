@@ -2,6 +2,10 @@ from rest_framework import serializers
 from .models import Usuario, Disciplina, ReservaAmbiente, Sala
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
+
+## o serializer serve para transformar os dados complexos em formatos simples como JSON com o objetivo de simplificar armazenamento e transporte.
+
+# -> nos serializers abaixo são pegos todas as informações dos models.
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
@@ -22,6 +26,7 @@ class ReservaAmbienteSerializer(serializers.ModelSerializer):
         model = ReservaAmbiente
         fields = '__all__'
 
+#aqui é pego apenas o username e o password para ser feito o login. Para isso é necessário a realização da validação do usuario
 class LoginSerializer(TokenObtainPairSerializer):
     username = serializers.CharField()
     password = serializers.CharField(write_only=True)
