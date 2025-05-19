@@ -13,6 +13,11 @@
 2. Abra o Banco do projeto no APP
 3. Vá no Settings.py e insira os dados corretos na linha 95 - 99 para que o projeto rode corretamente
 
+#### O banco tem que ter:
+- CREATE DATABASE cadastro;
+
+OBS.: **cadastro: é o nome do banco, caso você não queira usar desse modo, mude, mas saiba que tem que mudar no settings do projeto!**
+
 ### APLICAÇÃO:
 - Para rodar o projeto é necessário fazer uma série de passos que estão listados abaixo:
 1. Abra o projeto no Visual Studio Code
@@ -22,7 +27,7 @@
 5. Instale os requirements que estão no arquivo kauan.txt: pip install -r kauan.txt
 6. Cria o banco, colocando ele para rodar no WorkBench
 7. Volte para o projeto
-8. Dê makemigration no terminal do projeto: python .\manage.py makemigration
+8. Dê makemigration no terminal do projeto: python .\manage.py makemigrations
 9. Dê migrate para que tudo migre corretamente na máquina: python .\manage.py migrate
 10. Crie o SuperUser: python manage.py createsuperuser
 11. Por fim rode o projeto: python manage.py runserver
