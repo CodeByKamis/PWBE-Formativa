@@ -30,5 +30,5 @@ OBS.: **cadastro: é o nome do banco, caso você não queira usar desse modo, mu
 8. Dê makemigration no terminal do projeto: python .\manage.py makemigrations
 9. Dê migrate para que tudo migre corretamente na máquina: python .\manage.py migrate
 10. Crie o SuperUser: python manage.py createsuperuser
-11. Por fim rode o projeto: python manage.py runserver
+11. Por fim, rode o projeto: python manage.py runserver
 
