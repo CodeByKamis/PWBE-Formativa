@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'app',
-    'corsheader',
+    'corsheaders',
 ]
 #reconhecer o projeto
 AUTH_USER_MODEL = 'app.Usuario'
