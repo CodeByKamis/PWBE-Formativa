@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'app',
+    'corsheader',
 ]
 #reconhecer o projeto
 AUTH_USER_MODEL = 'app.Usuario'
@@ -64,6 +65,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheader.middleware.CorsMiddleware',
 ]
 #reconhecer o projeto
 ROOT_URLCONF = 'projeto.urls'
@@ -142,3 +144,10 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    "http://localhost:5137",
+    "http://localhost:5134"
+]
